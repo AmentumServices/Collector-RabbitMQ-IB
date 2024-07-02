@@ -37,8 +37,7 @@ jobs:
 
       - name: Run Skopeo Sync
         run: |
-          rm -rf rabbitmq-ib rabbitmq-[cm]*
-          skopeo sync \
+          skopeo sync --scoped \
               --src yaml --dest dir ${{ vars.COLLECTOR }}.yml ${{ vars.COLLECTOR }}
 
       - name: Directory Contents
