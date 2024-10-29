@@ -1,10 +1,10 @@
 registry1.dso.mil:
     images-by-tag-regex:
-        ironbank/bitnami/rabbitmq: (^3.12.14)|(latest)
+        ironbank/bitnami/rabbitmq: (^3.13.6)|(latest)
 docker.io:
     images-by-tag-regex:
-        chainguard/rabbitmq: (^3.13.3)|(latest)
+        # chainguard/rabbitmq: (^3.13.3)|(latest)
         bitnami/rabbitmq-cluster-operator: (^2.9.0)|(latest)
-        chainguard/rabbitmq-cluster-operator: (^2.9.0)|(latest)
-        chainguard/rabbitmq-messaging-topology-operator: latest|(^1.14.2)
+        # chainguard/rabbitmq-cluster-operator: (^2.9.0)|(latest)
+        # chainguard/rabbitmq-messaging-topology-operator: latest|(^1.14.2)
         # bitnami/rabbitmq-messaging-topology-operator: (^2.7.0)|(latest)
