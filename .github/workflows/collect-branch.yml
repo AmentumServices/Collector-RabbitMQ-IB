@@ -37,7 +37,7 @@ jobs:
 
       - name: Run Skopeo Sync
         run: |
-          skopeo sync \
+          skopeo sync --scoped \
               --src yaml --dest dir ${{ vars.COLLECTOR }}.yml ${{ vars.COLLECTOR }}
 
       - name: Directory Contents
@@ -106,6 +106,12 @@ jobs:
         with:
           merge-multiple: true
 
+      - name: Pull helm chart
+        run: |
+          mkdir helmchart
+          cd helmchart
+          helm pull oci://registry-1.docker.io/bitnamicharts/rabbitmq
+
       - name: Show Artifacts
         run: ls -Alh ${{ vars.COLLECTOR }}-*.*
 
@@ -113,7 +119,6 @@ jobs:
         run: |
           sha256sum -b ${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}* | tee \
             ${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}.sha
-          
 
       - name: Upload Artifact Hash File
         uses: actions/upload-artifact@v4
@@ -127,7 +132,7 @@ jobs:
             -V '${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}' \
             -A '${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}' \
             -o ${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}.iso \
-            ${{ vars.COLLECTOR }}-*.* *.md
+            ${{ vars.COLLECTOR }}-*.* helmchart *.md
 
       - name: Implant MD5 sum into iso
         run: implantisomd5 ${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}.iso
