@@ -50,16 +50,16 @@ jobs:
             ${{ vars.COLLECTOR }}.yml \
             ${{ vars.COLLECTOR }}
 
-      - name: Grab helm
+      - name: Grab helm chart
         run: |
           mkdir -p helmchart
           cd helmchart
           echo -e "\nSet repo and pull chart"
-          helm pull oci://registry-1.docker.io/bitnamicharts/rabbitmq
+          helm pull https://charts.bitnami.com/bitnami/rabbitmq
           echo -e "\nInstall helm images plugin"
           helm plugin install https://github.com/nikhilsbhat/helm-images
           echo -e "\nImages listed in chart"
-          helm images get oci://registry-1.docker.io/bitnamicharts/rabbitmq
+          helm images get https://charts.bitnami.com/bitnami/rabbitmq
 
       - name: Directory Contents
         run: |
@@ -174,7 +174,7 @@ jobs:
           mkdir -p ${{ vars.COLLECTOR }}/helmchart
           cd ${{ vars.COLLECTOR }}/helmchart
           echo -e "\nSet repo and pull chart"
-          helm pull oci://registry-1.docker.io/bitnamicharts/rabbitmq
+          helm pull https://charts.bitnami.com/bitnami/rabbitmq
           sha256sum -b * \
           | tee ${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}.helm.sha
 
